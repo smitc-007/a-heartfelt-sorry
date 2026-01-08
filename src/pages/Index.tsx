@@ -1,13 +1,43 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import FloatingWords from '@/components/FloatingWords';
+import HeroSection from '@/components/HeroSection';
+import LetterSection from '@/components/LetterSection';
+import EmotionSection from '@/components/EmotionSection';
+import ClosingSection from '@/components/ClosingSection';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
+  useEffect(() => {
+    // Smooth scroll setup
+    ScrollTrigger.defaults({
+      markers: false,
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="relative overflow-x-hidden bg-background">
+      {/* Floating background words */}
+      <FloatingWords />
+
+      {/* Hero Section */}
+      <HeroSection />
+
+      {/* Letter Section */}
+      <LetterSection />
+
+      {/* Emotional Lines Section */}
+      <EmotionSection />
+
+      {/* Closing Section */}
+      <ClosingSection />
+    </main>
   );
 };
 
