@@ -2,220 +2,245 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Note</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    }
 
-        body {
-            min-height: 100vh;
-            background: #020617;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f8fafc;
-        }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e1b4b, #020617 60%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f8fafc;
+    }
 
-        /* ===== Background floating words ===== */
-        .bg-text {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
+    .bg-text {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-        .bg-text span {
-            position: absolute;
-            color: rgba(148, 163, 184, 0.08);
-            font-size: 2.2rem;
-            font-weight: 500;
-            animation: floatUp 20s linear infinite;
-            white-space: nowrap;
-        }
+    .bg-text span {
+      position: absolute;
+      color: rgba(203, 213, 225, 0.06);
+      font-size: 2.4rem;
+      font-weight: 500;
+      animation: floatUp 22s linear infinite;
+      white-space: nowrap;
+    }
 
-        @keyframes floatUp {
-            from {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
+    @keyframes floatUp {
+      from {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+      20% { opacity: 1; }
+      to {
+        transform: translateY(-120vh);
+        opacity: 0;
+      }
+    }
 
-            20% {
-                opacity: 1;
-            }
+    .screen {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      padding: 22px;
+      z-index: 2;
+    }
 
-            to {
-                transform: translateY(-120vh);
-                opacity: 0;
-            }
-        }
+    .card {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+      border-radius: 20px;
+      padding: 28px 24px;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+      animation: rise 0.9s ease forwards;
+      backdrop-filter: blur(6px);
+    }
 
-        /* ===== Foreground card ===== */
-        .screen {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-            padding: 22px;
-            z-index: 2;
-        }
+    h1 {
+      font-size: 1.45rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: #f8fafc;
+    }
 
-        .card {
-            background: rgba(15, 23, 42, 0.92);
-            border-radius: 18px;
-            padding: 26px 22px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-            animation: rise 0.9s ease forwards;
-        }
+    p {
+      font-size: 0.96rem;
+      line-height: 1.8;
+      color: #d1d5db;
+      margin-bottom: 18px;
+    }
 
-        h1 {
-            font-size: 1.35rem;
-            font-weight: 500;
-            margin-bottom: 14px;
-            color: #f1f5f9;
-        }
+    .step {
+      display: none;
+      animation: slideFade 0.7s ease forwards;
+    }
 
-        p {
-            font-size: 0.95rem;
-            line-height: 1.75;
-            color: #cbd5e1;
-            margin-bottom: 18px;
-        }
+    .forgive {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #e9d5ff;
+      animation: forgiveFade 1.4s ease forwards;
+      text-shadow: 0 0 18px rgba(139, 92, 246, 0.45);
+    }
 
-        .step {
-            display: none;
-            animation: slideFade 0.6s ease forwards;
-        }
+    @keyframes forgiveFade {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        button {
-            width: 100%;
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #e5e7eb;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+    }
 
-        button:hover {
-            background: #334155;
-        }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(99, 102, 241, 0.45);
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 14px;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            opacity: 0.85;
-        }
+    button.disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+    }
 
-        @keyframes rise {
-            from {
-                transform: translateY(18px);
-                opacity: 0;
-            }
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      opacity: 0.8;
+    }
 
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    @keyframes rise {
+      from {
+        transform: translateY(22px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
 
-        @keyframes slideFade {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    @keyframes slideFade {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- Background animated words -->
-    <div class="bg-text">
-        <span style="left:10%; animation-delay:0s;">sorry</span>
-        <span style="left:60%; animation-delay:4s;">hey</span>
-        <span style="left:30%; animation-delay:8s;">listen</span>
-        <span style="left:75%; animation-delay:12s;">my bad</span>
-        <span style="left:45%; animation-delay:16s;">friend</span>
+  <div class="bg-text">
+    <span style="left:12%; animation-delay:0s;">sorry</span>
+    <span style="left:65%; animation-delay:5s;">hey</span>
+    <span style="left:32%; animation-delay:9s;">listen</span>
+    <span style="left:78%; animation-delay:14s;">my bad</span>
+    <span style="left:48%; animation-delay:18s;">friend</span>
+  </div>
+
+  <div class="screen">
+    <div class="card">
+      <h1>Hey.</h1>
+
+      <p>I didn’t want to just say sorry and move on.</p>
+
+      <div id="step1" class="step">
+        <p>
+          You’re important to me,
+          and when things felt off between us,
+          it stayed on my mind.
+        </p>
+      </div>
+
+      <div id="step2" class="step">
+        <p>
+          I know I didn’t handle everything perfectly.
+          Some moments deserved more care than I gave.
+        </p>
+      </div>
+
+      <div id="step3" class="step">
+        <p>
+          This friendship matters to me —
+          enough to pause, reflect, and try to make things right.
+        </p>
+      </div>
+
+      <div id="step4" class="step">
+        <p>
+          I’m here when you’re ready.
+          No pressure. Just honesty.
+        </p>
+      </div>
+
+      <div id="forgive" class="forgive">
+        Please forgive me.
+      </div>
+
+      <button id="btn" onclick="nextStep()">Continue</button>
     </div>
 
-    <!-- Foreground content -->
-    <div class="screen">
-        <div class="card">
-            <h1>Hey.</h1>
-
-            <p>
-                I didn’t want to just say sorry and move on.
-            </p>
-
-            <div id="step1" class="step">
-                <p>
-                    You’re important to me,
-                    and when things felt off between us,
-                    it stayed on my mind.
-                </p>
-            </div>
-
-            <div id="step2" class="step">
-                <p>
-                    I know I didn’t handle everything perfectly.
-                    Some moments deserved more care than I gave.
-                </p>
-            </div>
-
-            <div id="step3" class="step">
-                <p>
-                    This friendship matters to me —
-                    enough to pause, reflect, and try to make things right.
-                </p>
-            </div>
-
-            <div id="step4" class="step">
-                <p>
-                    I’m here when you’re ready.
-                    No pressure. Just honesty.
-                </p>
-            </div>
-
-            <button onclick="nextStep()">Continue</button>
-        </div>
-
-        <div class="footer">
-            made with intention
-        </div>
+    <div class="footer">
+      made with intention
     </div>
+  </div>
 
-    <script>
-        let step = 0;
+  <script>
+    let step = 0;
 
-        function nextStep() {
-            step++;
-            if (step === 1) document.getElementById("step1").style.display = "block";
-            if (step === 2) document.getElementById("step2").style.display = "block";
-            if (step === 3) document.getElementById("step3").style.display = "block";
-            if (step === 4) {
-                document.getElementById("step4").style.display = "block";
-                document.querySelector("button").innerText = "That’s all";
-            }
-        }
-    </script>
+    function nextStep() {
+      step++;
+      if (step === 1) step1.style.display = "block";
+      if (step === 2) step2.style.display = "block";
+      if (step === 3) step3.style.display = "block";
+      if (step === 4) step4.style.display = "block";
+      if (step === 5) {
+        forgive.style.display = "block";
+        btn.innerText = "That’s all";
+        btn.classList.add("disabled");
+        btn.onclick = null;
+      }
+    }
+  </script>
 
 </body>
 
